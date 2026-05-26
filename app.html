@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardião Digital - Prevenção de Cibercrimes</title>
+    
+    <!-- Importação de Recursos Externos Essenciais -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Configuração e Importação do Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        seguro: {
+                            50: '#f0f7ff',
+                            100: '#e0f0ff',
+                            200: '#badcff',
+                            300: '#7cc0ff',
+                            400: '#349dff',
+                            500: '#007aff',
+                            600: '#005ecb',
+                            700: '#0049a3',
+                            800: '#053f86',
+                            900: '#0b356f',
+                        },
+                        esperanca: {
+                            50: '#f0fdf4', /* Verde menta claro e limpo para feedbacks corretos */
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Sistema de transições de opacidade e movimento para abas */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Ativação física no fluxo do documento */
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Animação de entrada suave */
+        .tab-content.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Transição suave para mudança de fases do Quiz */
+        .quiz-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        /* Estilo personalizado de barra de rolagem */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-colors duration-500 min-h-screen flex flex-col justify-between">
+
+    <!-- CABEÇALHO & BARRA DE NAVEGAÇÃO COM EFEITO BLUR -->
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 shadow-sm transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logótipo - Retorna sempre ao menu inicial -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('landing')">
+                    <div class="bg-gradient-to-tr from-seguro-600 to-seguro-500 text-white p-2 rounded-xl shadow-md">
+                        <i class="fa-solid fa-shield-halved text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg text-seguro-900 dark:text-white tracking-tight block leading-none transition-colors duration-500">GUARDIÃO</span>
+                        <span class="text-xs font-semibold text-esperanca-600 uppercase tracking-widest">DIGITAL</span>
+                    </div>
+                </div>
+
+                <!-- Botão de retorno simples e direto para o início -->
+                <div class="flex items-center">
+                    <button onclick="switchTab('landing')" class="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-seguro-600 dark:hover:text-white transition flex items-center gap-1.5 py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
+                        <i class="fa-solid fa-house"></i> Início
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- PÁGINA INICIAL / BOAS-VINDAS -->
+        <div id="tab-landing" class="tab-content active show space-y-12">
+            <div class="bg-gradient-to-r from-seguro-900 to-seguro-700 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+                <!-- Decoração em SVG de fundo -->
+                <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-y-12 translate-x-12">
+                    <i class="fa-solid fa-shield-halved text-[300px]"></i>
+                </div>
+                
+                <div class="max-w-4xl space-y-6 relative z-10">
+                    <span class="bg-esperanca-600 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">Segurança na Rede</span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Internet Segura para Todos</h1>
+                    <p class="text-seguro-100 text-base sm:text-lg leading-relaxed text-justify w-full max-w-4xl">
+                        Aprender a proteger-se no mundo digital não tem de ser complicado ou assustador. Desenvolvemos esta ferramenta interativa com módulos exclusivos para cada faixa etária e guias de segurança essenciais para a família, promovendo reflexões e boas práticas que asseguram uma convivência saudável e livre de riscos no ambiente cibernético.
+                    </p>
+                    <div class="pt-2">
+                        <a href="#modulos-selecao" class="inline-flex items-center gap-2 bg-white text-seguro-900 hover:bg-seguro-50 font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 text-sm sm:text-base">
+                            Começar a Explorar <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS DOS MÓDULOS PARA NAVEGAÇÃO -->
+            <div id="modulos-selecao" class="grid grid-cols-1 md:grid-cols-3 gap-8 scroll-mt-24">
+                <!-- Card Módulo Kids -->
+                <div onclick="switchTab('kids')" class="bg-white rounded-3xl p-6 border-2 border-transparent hover:border-amber-400 hover:shadow-xl shadow-md transition-all duration-300 cursor-pointer flex flex-col justify-between h-80 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-500 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            🎈
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Módulo Kids</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Um Quiz interativo e muito divertido preparado para crianças de 6 a 9 anos aprenderem a navegar com segurança.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 text-amber-500 font-bold text-sm mt-4">
+                        Aceder ao Quiz <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+
+                <!-- Card Módulo Teens -->
+                <div onclick="switchTab('teens')" class="bg-white rounded-3xl p-6 border-2 border-transparent hover:border-indigo-400 hover:shadow-xl shadow-md transition-all duration-300 cursor-pointer flex flex-col justify-between h-80 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-500 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            📱
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Módulo Teens</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Estudos de caso e Analisador de Mensagens suspeitas com Inteligência Artificial para jovens dos 11 aos 18 anos.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 text-indigo-500 font-bold text-sm mt-4">
+                        Analisar Casos & IA <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+
+                <!-- Card Módulo Adultos -->
+                <div onclick="switchTab('adults')" class="bg-white rounded-3xl p-6 border-2 border-transparent hover:border-seguro-400 hover:shadow-xl shadow-md transition-all duration-300 cursor-pointer flex flex-col justify-between h-80 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-seguro-100 text-seguro-500 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            🛡️
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Módulo Adultos</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Central de orientações para pais com respostas rápidas e Canal de Consultas por IA em tempo real.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 text-seguro-500 font-bold text-sm mt-4">
+                        Obter Orientações <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 1: KIDS -->
+        <div id="tab-kids" class="tab-content space-y-6">
+            <div class="max-w-3xl mx-auto">
+                <button onclick="switchTab('landing')" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-seguro-600 transition mb-4 group">
+                    <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Voltar ao Menu Principal
+                </button>
+
+                <div class="text-center space-y-2 mb-8">
+                    <span class="text-4xl animate-pulse block">🎈</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Super Quiz da Internet Segura</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">Ajuda a manter os nossos personagens seguros nas suas aventuras virtuais!</p>
+                </div>
+
+                <!-- Container do Quiz -->
+                <div id="kids-main-card" class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-2 bg-slate-100">
+                        <div id="kids-progress" class="h-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+
+                    <!-- Card de Pergunta Ativa -->
+                    <div id="kids-quiz-container" class="space-y-6 pt-2 quiz-transition">
+                        <!-- Injetado dinamicamente -->
+                    </div>
+
+                    <!-- Card de Feedback Imediato -->
+                    <div id="kids-feedback-container" class="hidden mt-6 p-6 rounded-2xl space-y-4 quiz-transition">
+                        <!-- Injetado dinamicamente -->
+                    </div>
+                </div>
+                
+                <!-- Botões de Controlo -->
+                <div id="kids-controls" class="flex justify-between items-center mt-6">
+                    <span id="kids-step-indicator" class="text-sm font-bold text-slate-500"></span>
+                    <button id="kids-next-btn" onclick="nextKidsQuestion()" class="hidden bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2">
+                        Avançar <i class="fa-solid fa-circle-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 2: TEENS -->
+        <div id="tab-teens" class="tab-content space-y-6">
+            <div class="max-w-3xl mx-auto">
+                <button onclick="switchTab('landing')" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-seguro-600 dark:text-slate-400 dark:hover:text-indigo-400 transition mb-4 group">
+                    <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Voltar ao Menu Principal
+                </button>
+
+                <div class="text-center space-y-2 mb-6">
+                    <span class="text-4xl block">📱</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Estudos de Caso & Análise de Risco</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Pratica com casos reais ou analisa mensagens suspeitas com o nosso motor de Inteligência Artificial.</p>
+                </div>
+
+                <!-- Sub-Navegação interna para Teens (Casos vs Analisador IA) -->
+                <div class="flex bg-slate-200/60 dark:bg-slate-800 p-1.5 rounded-2xl max-w-md mx-auto mb-6">
+                    <button id="btn-teen-mode-cases" onclick="toggleTeenMode('cases')" class="flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 bg-white dark:bg-slate-700 text-indigo-950 dark:text-white shadow-sm">
+                        <i class="fa-solid fa-book-open mr-1"></i> Estudos de Caso
+                    </button>
+                    <button id="btn-teen-mode-ia" onclick="toggleTeenMode('ia')" class="flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-indigo-900 dark:hover:text-indigo-300">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1 text-indigo-500 animate-pulse"></i> Analisador de IA
+                    </button>
+                </div>
+
+                <!-- Sub-aba 1: Estudos de Caso Clássicos -->
+                <div id="teen-mode-cases-panel" class="space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-100 dark:border-slate-700 relative overflow-hidden transition-colors duration-500">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-slate-100 dark:bg-slate-700">
+                            <div id="teens-progress" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300" style="width: 0%"></div>
+                        </div>
+
+                        <div id="teens-case-container" class="space-y-6 pt-2 quiz-transition">
+                            <!-- Injetado dinamicamente -->
+                        </div>
+
+                        <div id="teens-feedback-container" class="hidden mt-6 p-6 rounded-2xl space-y-4 quiz-transition">
+                            <!-- Injetado dinamicamente -->
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span id="teens-step-indicator" class="text-sm font-bold text-slate-500 dark:text-slate-400"></span>
+                        <button id="teens-next-btn" onclick="nextTeenCase()" class="hidden bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2">
+                            Avançar <i class="fa-solid fa-circle-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sub-aba 2: Analisador de Mensagens com IA -->
+                <div id="teen-mode-ia-panel" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-100 dark:border-slate-700 space-y-6 transition-colors duration-500">
+                        <div class="space-y-2">
+                            <h3 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-mask text-indigo-500"></i> Recebeste uma mensagem estranha?
+                            </h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">
+                                Cola aqui uma mensagem que recebeste no Discord, Instagram ou em videojogos (pedidos de fotos, ofertas de moedas virtuais, intimidades) e a nossa IA avaliará o perigo.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <textarea id="teen-ia-input" rows="4" placeholder="Exemplo: 'Olá! Reparei que jogas muito bem. Se me deres o teu número de telemóvel e enviares uma foto tua a sorrir, posso carregar-te 1000 moedas na tua conta de jogo hoje mesmo...'" class="w-full p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white focus:border-indigo-400 focus:ring-0 text-sm text-slate-700 transition placeholder:text-slate-400 dark:placeholder:text-slate-400 resize-none"></textarea>
+                            
+                            <div class="flex justify-end">
+                                <button onclick="analyzeTeenMessageWithIA()" id="btn-teen-ia-submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2 text-sm">
+                                    <i class="fa-solid fa-brain"></i> Analisar com IA
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Painel de Resultados do Analisador -->
+                        <div id="teen-ia-result" class="hidden p-5 rounded-2xl border space-y-4">
+                            <!-- Injetado dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 3: ADULTOS -->
+        <div id="tab-adults" class="tab-content space-y-6">
+            <div class="max-w-4xl mx-auto">
+                <button onclick="switchTab('landing')" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-seguro-600 transition mb-4 group">
+                    <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Voltar ao Menu Principal
+                </button>
+
+                <div class="text-center space-y-2 mb-8">
+                    <span class="text-4xl block">🛡️</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Guardião Digital - Respostas e Ajuda</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">Escolhe entre consultar as diretrizes rápidas ou conversar em tempo real com a nossa Inteligência Artificial especializada.</p>
+                </div>
+
+                <!-- Sub-Navegação interna para Adultos (Respostas Rápidas vs Chatbot IA) -->
+                <div class="flex bg-slate-200/60 p-1.5 rounded-2xl max-w-md mx-auto mb-6">
+                    <button id="btn-adult-mode-quick" onclick="toggleAdultMode('quick')" class="flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 bg-white text-seguro-950 shadow-sm">
+                        <i class="fa-solid fa-bolt mr-1"></i> Respostas Rápidas
+                    </button>
+                    <button id="btn-adult-mode-ia" onclick="toggleAdultMode('ia')" class="flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-slate-600 hover:text-seguro-900">
+                        <i class="fa-solid fa-comments-dollar mr-1 text-seguro-500 animate-pulse"></i> Consulta Inteligente (IA)
+                    </button>
+                </div>
+
+                <!-- Painel 1: Respostas Rápidas Clássicas -->
+                <div id="adult-mode-quick-panel" class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[520px]">
+                    <!-- Cabeçalho do Painel -->
+                    <div class="bg-gradient-to-r from-seguro-700 to-seguro-600 p-4 flex items-center justify-between text-white shadow-md shrink-0">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <span class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-lg"><i class="fa-solid fa-user-shield"></i></span>
+                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-esperanca-500 border-2 border-white rounded-full"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm">Painel Informativo de Orientação</h3>
+                                <p class="text-xs text-seguro-100">Respostas Estruturadas • Ativo</p>
+                            </div>
+                        </div>
+                        <span class="text-xs bg-white/10 px-2.5 py-1 rounded-full"><i class="fa-solid fa-lock text-[10px] mr-1"></i> Seguro</span>
+                    </div>
+
+                    <!-- Mensagens Informativas Geradas -->
+                    <div id="chat-messages" class="flex-grow overflow-y-auto p-6 space-y-4 bg-slate-50">
+                        <div class="flex items-start gap-3">
+                            <span class="w-8 h-8 bg-seguro-600 text-white rounded-full flex items-center justify-center text-xs shrink-0"><i class="fa-solid fa-robot"></i></span>
+                            <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-sm leading-relaxed max-w-[85%] text-slate-700">
+                                <p class="font-semibold text-slate-900 mb-1">Olá! Bem-vindo ao canal de suporte do Guardião Digital.</p>
+                                Este módulo destina-se a pais, encarregados de educação e professores. 
+                                <br><br>
+                                <strong>Selecione um dos botões abaixo</strong> para aceder de imediato a informações oficiais e canais estruturados de apoio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões Rápidos e Exclusivos de Consulta de Informação -->
+                    <div class="p-5 bg-white border-t border-slate-200 flex flex-col gap-3 shrink-0">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 text-center">Selecione o tópico de ajuda desejado:</span>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <button onclick="sendQuickMessage('Sinais de Alerta')" class="bg-slate-50 hover:bg-seguro-50 text-seguro-700 border-2 border-slate-200 hover:border-seguro-300 font-bold px-4 py-3.5 rounded-2xl text-sm transition shadow-sm text-center flex items-center justify-center gap-2">
+                                🔍 Sinais de Alerta
+                            </button>
+                            <button onclick="sendQuickMessage('Como Denunciar')" class="bg-slate-50 hover:bg-seguro-50 text-seguro-700 border-2 border-slate-200 hover:border-seguro-300 font-bold px-4 py-3.5 rounded-2xl text-sm transition shadow-sm text-center flex items-center justify-center gap-2">
+                                🚨 Como Denunciar
+                            </button>
+                            <button onclick="sendQuickMessage('Prevenção')" class="bg-slate-50 hover:bg-seguro-50 text-seguro-700 border-2 border-slate-200 hover:border-seguro-300 font-bold px-4 py-3.5 rounded-2xl text-sm transition shadow-sm text-center flex items-center justify-center gap-2">
+                                🛡️ Prevenção
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Painel 2: Chatbot com IA ativa (Gemini) para dúvidas personalizadas -->
+                <div id="adult-mode-ia-panel" class="hidden bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[550px]">
+                    <!-- Cabeçalho do Chatbot Ativo -->
+                    <div class="bg-gradient-to-r from-seguro-800 to-indigo-700 p-4 flex items-center justify-between text-white shadow-md shrink-0">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <span class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-lg"><i class="fa-solid fa-brain"></i></span>
+                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-esperanca-500 border-2 border-white rounded-full"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm">Consultório de IA Especializado</h3>
+                                <p class="text-xs text-seguro-100">Esclarecimento de Dúvidas sobre Cibersegurança de Menores</p>
+                            </div>
+                        </div>
+                        <span class="text-xs bg-esperanca-600 px-2.5 py-1 rounded-full"><i class="fa-solid fa-circle-check text-[10px] mr-1"></i> Inteligência Ativa</span>
+                    </div>
+
+                    <!-- Corpo das Mensagens do Chat IA -->
+                    <div id="chat-ia-messages" class="flex-grow overflow-y-auto p-6 space-y-4 bg-slate-50">
+                        <div class="flex items-start gap-3">
+                            <span class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs shrink-0"><i class="fa-solid fa-robot"></i></span>
+                            <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-sm leading-relaxed max-w-[85%] text-slate-700">
+                                <p class="font-semibold text-slate-900 mb-1">Olá! Sou o Especialista em Segurança do Guardião Digital.</p>
+                                Estou pronto para responder a perguntas profundas ou dúvidas específicas de pais e encarregados de educação acerca de perigos digitais, ciberpedofilia, aliciamento online ou comportamento suspeito.
+                                <br><br>
+                                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md">Nota: Perguntas fora do tema de cibersegurança e proteção de menores serão recusadas.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Caixa de Entrada do Chat IA -->
+                    <div class="p-4 bg-white border-t border-slate-200 shrink-0">
+                        <div class="flex gap-2">
+                            <input type="text" id="chat-ia-input" onkeydown="handleChatIAPress(event)" placeholder="Escreva a sua dúvida aqui... (Ex: Como falar com a minha filha sobre convites de estranhos no Discord?)" class="flex-grow px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-400 focus:outline-none text-sm text-slate-700 transition">
+                            <button onclick="sendUserMessageToIA()" id="btn-chat-ia-send" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-xl font-bold text-sm transition flex items-center justify-center gap-1.5 shadow-md">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- RODAPÉ CLEAN REVERTIDO (INTEGRADO E ELEGANTE) -->
+    <footer class="bg-transparent border-t border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-xs py-6 mt-8 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+            <p class="font-semibold text-slate-700 dark:text-slate-300">© 2026 Guardião Digital — Promovendo uma Cultura de Proteção no Ambiente Virtual.</p>
+            <p class="text-slate-400 dark:text-slate-500">Desenvolvido para fins pedagógicos e de utilidade pública contra a ciberpedofilia e o aliciamento de menores.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script>
+        // --- GERENCIAMENTO DE ABAS / NAVEGAÇÃO COM TRANSIÇÕES ELEGANTES ---
+        function switchTab(tabId) {
+            const currentActive = document.querySelector('.tab-content.active');
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            
+            if (!targetTab || currentActive === targetTab) return;
+
+            // Ativa o Modo Escuro especificamente no módulo Teens
+            if (tabId === 'teens') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            if (currentActive) {
+                // Inicia o desvanecimento da secção ativa
+                currentActive.classList.remove('show');
+                
+                // Aguarda a transição de opacidade completar (400ms) para alternar o estado do elemento
+                setTimeout(() => {
+                    currentActive.classList.remove('active');
+                    
+                    // Exibe a nova aba no fluxo
+                    targetTab.classList.add('active');
+                    
+                    // Pequeno repaint manual para registar as alterações físicas
+                    targetTab.offsetHeight;
+                    
+                    // Inicia o esvanecimento de entrada (fade-in)
+                    targetTab.classList.add('show');
+                }, 400);
+            } else {
+                targetTab.classList.add('active');
+                targetTab.offsetHeight;
+                targetTab.classList.add('show');
+            }
+
+            // Deslocamento de ecrã suave de volta para o topo da página
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- INTEGRAÇÃO DA API DO GEMINI COM EXPONENTIAL BACKOFF RETRY ---
+        async function callGemini(userQuery, systemPrompt) {
+            const apiKey = ""; // Chave do ambiente gerida em runtime
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            let delay = 1000;
+            for (let attempt = 0; attempt < 5; attempt++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userQuery }] }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] }
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) return text;
+                    throw new Error("Formato de resposta inválido da API.");
+                } catch (error) {
+                    if (attempt === 4) {
+                        console.error("Falha após 5 tentativas de comunicação com o Gemini API:", error);
+                        throw error;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // Dobro do tempo de espera (Exponential Backoff)
+                }
+            }
+        }
+
+        // --- SUB-ABAS MÓDULO TEENS (CASOS VS ANALISADOR IA) ---
+        function toggleTeenMode(mode) {
+            const btnCases = document.getElementById('btn-teen-mode-cases');
+            const btnIA = document.getElementById('btn-teen-mode-ia');
+            const panelCases = document.getElementById('teen-mode-cases-panel');
+            const panelIA = document.getElementById('teen-mode-ia-panel');
+
+            if (mode === 'cases') {
+                btnCases.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 bg-white dark:bg-slate-700 text-indigo-950 dark:text-white shadow-sm";
+                btnIA.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-indigo-900 dark:hover:text-indigo-300";
+                panelCases.classList.remove('hidden');
+                panelIA.classList.add('hidden');
+            } else {
+                btnIA.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 bg-white dark:bg-slate-700 text-indigo-950 dark:text-white shadow-sm";
+                btnCases.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-indigo-900 dark:hover:text-indigo-300";
+                panelIA.classList.remove('hidden');
+                panelCases.classList.add('hidden');
+            }
+        }
+
+        // --- FUNCIONALIDADE ANALISADOR DE MENSAGENS COM IA (TEENS) ---
+        async function analyzeTeenMessageWithIA() {
+            const inputField = document.getElementById("teen-ia-input");
+            const resultBox = document.getElementById("teen-ia-result");
+            const submitBtn = document.getElementById("btn-teen-ia-submit");
+            const userMessage = inputField.value.trim();
+
+            if (!userMessage) {
+                alert("Por favor, cola ou escreve primeiro uma mensagem suspeita para analisarmos.");
+                return;
+            }
+
+            // Ativa estado de carregamento visual
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> A analisar...`;
+            
+            resultBox.classList.remove("hidden");
+            resultBox.className = "p-5 rounded-2xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/20 dark:bg-indigo-900/20 text-slate-700 dark:text-slate-300 animate-pulse text-sm";
+            resultBox.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-shield-halved animate-spin text-xl text-indigo-500"></i>
+                    <div>
+                        <p class="font-bold text-slate-800 dark:text-white">A processar os dados de conversação...</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">A Inteligência Artificial está a verificar indícios de manipulação ou engenharia social.</p>
+                    </div>
+                </div>
+            `;
+
+            const systemPrompt = `You are a professional child safety expert and cybersecurity specialist advising a teenager in Portugal. 
+            Analyze the message that was sent to them online.
+            Evaluate if there are signs of grooming, child predation, luring, password phishing, cyberbullying, financial scams or blackmail.
+            You MUST return a formatted Portuguese (Portugal) response strictly including:
+            1. **Risk Level** (Nível de Risco): Low (Baixo - green), Medium (Médio - amber) or High (Alto - red). Explain why immediately.
+            2. **Táticas de Manipulação Detetadas**: Explain clearly and in an accessible, non-scary tone suitable for a 13-17 year old, what manipulation or grooming tactics (like emotional debt, fake gifts, isolation, sense of urgency) are being used.
+            3. **Conselhos de Segurança**: What concrete actions the teen should take now (e.g., Do not send photos, block immediately, tell an adult, take screenshots). Keep the language friendly, protective, and empowering.`;
+
+            try {
+                const aiResultMarkdown = await callGemini(userMessage, systemPrompt);
+                
+                // Formatação visual da resposta dependendo do nível de risco detetado na resposta da IA
+                let riskColorClass = "border-amber-200 dark:border-amber-800 bg-amber-50/30 dark:bg-amber-900/20 text-amber-900 dark:text-amber-100";
+                let riskIcon = "fa-triangle-exclamation text-amber-500";
+                
+                if (aiResultMarkdown.toLowerCase().includes("alto") || aiResultMarkdown.toLowerCase().includes("high") || aiResultMarkdown.toLowerCase().includes("perigo")) {
+                    riskColorClass = "border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/20 text-red-950 dark:text-red-100";
+                    riskIcon = "fa-circle-exclamation text-red-600 dark:text-red-500";
+                } else if (aiResultMarkdown.toLowerCase().includes("baixo") || aiResultMarkdown.toLowerCase().includes("low") || aiResultMarkdown.toLowerCase().includes("seguro")) {
+                    riskColorClass = "border-esperanca-200 dark:border-esperanca-800 bg-esperanca-50/30 dark:bg-esperanca-900/20 text-esperanca-950 dark:text-esperanca-100";
+                    riskIcon = "fa-circle-check text-esperanca-600 dark:text-esperanca-500";
+                }
+
+                // Parser simples de markdown para exibir de forma elegante na tela
+                const formattedHtml = aiResultMarkdown
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                resultBox.className = `p-6 rounded-2xl border ${riskColorClass} space-y-4 animate-fade-in`;
+                resultBox.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="w-10 h-10 rounded-full flex items-center justify-center bg-white/80 dark:bg-slate-800/80 shadow-sm shrink-0">
+                            <i class="fa-solid ${riskIcon} text-lg"></i>
+                        </span>
+                        <div class="space-y-3 w-full">
+                            <h4 class="font-extrabold text-base border-b dark:border-white/10 pb-2">Resultado da Análise à Mensagem</h4>
+                            <div class="text-sm leading-relaxed font-medium">
+                                ${formattedHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                resultBox.className = "p-5 rounded-2xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-900 dark:text-red-100 text-sm";
+                resultBox.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <p><strong>Erro de Comunicação:</strong> Não foi possível obter uma análise da IA no momento. Por favor, tenta novamente mais tarde.</p>
+                    </div>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-brain"></i> Analisar com IA`;
+            }
+        }
+
+
+        // --- SUB-ABAS MÓDULO ADULTOS (RESPOSTAS RÁPIDAS VS CHAT IA) ---
+        function toggleAdultMode(mode) {
+            const btnQuick = document.getElementById('btn-adult-mode-quick');
+            const btnIA = document.getElementById('btn-adult-mode-ia');
+            const panelQuick = document.getElementById('adult-mode-quick-panel');
+            const panelIA = document.getElementById('adult-mode-ia-panel');
+
+            if (mode === 'quick') {
+                btnQuick.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 bg-white text-seguro-950 shadow-sm";
+                btnIA.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-slate-600 hover:text-seguro-900";
+                panelQuick.classList.remove('hidden');
+                panelIA.classList.add('hidden');
+            } else {
+                btnIA.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 bg-white text-seguro-950 shadow-sm";
+                btnQuick.className = "flex-1 text-center py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-slate-600 hover:text-seguro-900";
+                panelIA.classList.remove('hidden');
+                panelQuick.classList.add('hidden');
+            }
+        }
+
+        // --- FUNCIONALIDADE CHATBOT IA ADULTOS ---
+        function handleChatIAPress(event) {
+            if (event.key === 'Enter') {
+                sendUserMessageToIA();
+            }
+        }
+
+        async function sendUserMessageToIA() {
+            const inputField = document.getElementById("chat-ia-input");
+            const sendBtn = document.getElementById("btn-chat-ia-send");
+            const messageText = inputField.value.trim();
+
+            if (!messageText) return;
+
+            inputField.value = "";
+            inputField.disabled = true;
+            sendBtn.disabled = true;
+
+            appendIAMessage(messageText, 'user');
+            const typingId = appendIATypingIndicator();
+
+            const systemPrompt = `You are a professional child safety consultant and psychologist advising parents, teachers and guardians in Portugal. 
+            Answer their doubts on how to prevent online luring, cybergrooming, ciberpedofilia, sextortion, and general internet abuse of kids. 
+            Keep your tone highly empathetic, direct, informative, structured, and practical. 
+            CRITICAL SAFETY FILTER: If the user query is NOT related to digital child safety, child protection, online grooming, or cybersecurity of minors, you MUST politely and firmly decline to answer, explaining that your scope of intelligence is strictly restricted to cyber-pedophilia prevention and online protection of children.
+            Write in perfect Portuguese (Portugal). Use bullet points and paragraphs for perfect legibility.`;
+
+            try {
+                const aiResponseMarkdown = await callGemini(messageText, systemPrompt);
+                removeIATypingIndicator(typingId);
+
+                const formattedHtml = aiResponseMarkdown
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                appendIAMessage(formattedHtml, 'bot');
+            } catch (err) {
+                removeIATypingIndicator(typingId);
+                appendIAMessage("Lamento imenso, mas ocorreu uma falha temporária ao contactar o servidor do Guardião Digital. Por favor, tente de novo dentro de instantes.", 'bot');
+            } finally {
+                inputField.disabled = false;
+                sendBtn.disabled = false;
+                inputField.focus();
+            }
+        }
+
+        function appendIAMessage(text, sender) {
+            const chatMessages = document.getElementById("chat-ia-messages");
+            const isUser = sender === 'user';
+            
+            const msgHtml = isUser ? `
+                <div class="flex items-start justify-end gap-3 animate-fade-in">
+                    <div class="bg-indigo-600 text-white p-3.5 rounded-2xl rounded-tr-none shadow-sm text-sm leading-relaxed max-w-[85%]">
+                        ${text}
+                    </div>
+                    <span class="w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center text-xs shrink-0 font-bold">Pai</span>
+                </div>
+            ` : `
+                <div class="flex items-start gap-3 animate-fade-in">
+                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs shrink-0"><i class="fa-solid fa-robot"></i></span>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-sm leading-relaxed max-w-[85%] text-slate-700">
+                        ${text}
+                    </div>
+                </div>
+            `;
+
+            chatMessages.insertAdjacentHTML('beforeend', msgHtml);
+            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+        }
+
+        function appendIATypingIndicator() {
+            const chatMessages = document.getElementById("chat-ia-messages");
+            const typingId = "typing-" + Date.now();
+            
+            const indicatorHtml = `
+                <div id="${typingId}" class="flex items-start gap-3 animate-pulse">
+                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs shrink-0"><i class="fa-solid fa-brain"></i></span>
+                    <div class="bg-slate-200 p-3.5 rounded-2xl rounded-tl-none text-slate-500 text-xs italic flex items-center gap-2">
+                        <i class="fa-solid fa-spinner animate-spin"></i> O Guardião IA está a redigir a resposta oficial...
+                    </div>
+                </div>
+            `;
+            chatMessages.insertAdjacentHTML('beforeend', indicatorHtml);
+            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+            return typingId;
+        }
+
+        function removeIATypingIndicator(id) {
+            const indicator = document.getElementById(id);
+            if (indicator) indicator.remove();
+        }
+
+        // --- MÓDULO 1: QUIZ KIDS ---
+        const kidsQuestions = [
+            {
+                q: "O que você deve fazer com a sua senha do seu jogo favorito ou do tablet?",
+                options: [
+                    { key: "A", text: "Guardar em segredo só com você e seus pais ou responsáveis." },
+                    { key: "B", text: "Contar para os seus amigos na escola para não esquecer." }
+                ],
+                correct: "A",
+                feedback: "As senhas são chaves secretas e só quem cuida de você deve saber delas."
+            },
+            {
+                q: "Você está jogando online e alguém que você não conhece manda uma mensagem pedindo para ser seu amigo. O que você faz?",
+                options: [
+                    { key: "A", text: "Começa a conversar e conta onde você mora." },
+                    { key: "B", text: "Não responde e avisa logo um adulto de confiança." }
+                ],
+                correct: "B",
+                feedback: "Nunca devemos conversar com estranhos na internet sem um adulto por perto."
+            },
+            {
+                q: "É seguro colocar o seu endereço e o nome da sua escola na internet para todo mundo ver?",
+                options: [
+                    { key: "A", text: "Não, essas informações devem ficar sempre fora da internet." },
+                    { key: "B", text: "Sim, não tem nenhum problema em mostrar para todo mundo." }
+                ],
+                correct: "A",
+                feedback: "Dados como onde você estuda ou mora são privados e devem ficar super protegidos."
+            },
+            {
+                q: "Um colega está mandando mensagens feias para outro amigo no grupo do jogo. O que é o certo a se fazer?",
+                options: [
+                    { key: "A", text: "Rir junto e mandar mensagens feias também." },
+                    { key: "B", text: "Mostrar para um adulto de confiança para que ele possa ajudar." }
+                ],
+                correct: "B",
+                feedback: "O cyberbullying é assunto sério e um adulto pode ajudar a parar com essa situação ruim."
+            },
+            {
+                q: "Aparece um aviso piscando na tela dizendo: 'Você ganhou um prêmio incrível! Clique aqui!'. O que você faz?",
+                options: [
+                    { key: "A", text: "Fecha o aviso ou chama um adulto, porque pode ser uma armadilha." },
+                    { key: "B", text: "Clica bem rápido para não perder o prêmio." }
+                ],
+                correct: "A",
+                feedback: "Muitos 'prêmios' na internet são armadilhas para roubar dados ou espalhar vírus."
+            },
+            {
+                q: "Você achou uma skin muito legal para o seu personagem no jogo, mas ela custa dinheiro de verdade. O que você faz?",
+                options: [
+                    { key: "A", text: "Tenta adivinhar a senha do celular dos pais para comprar sozinho." },
+                    { key: "B", text: "Pede para os pais e só compra se eles deixarem e ajudarem você." }
+                ],
+                correct: "B",
+                feedback: "Compras em jogos usam dinheiro real e só devem ser feitas com a ajuda dos seus pais."
+            },
+            {
+                q: "Na internet, o que significa quando dizem que um computador pegou um 'vírus'?",
+                options: [
+                    { key: "A", text: "É um programa ruim feito para estragar o aparelho ou roubar informações." },
+                    { key: "B", text: "Significa que o computador está espirrando e com febre." }
+                ],
+                correct: "A",
+                feedback: "Vírus de computador são programas perigosos que pessoas maldosas criam, por isso precisamos de muito cuidado com o que clicamos."
+            },
+            {
+                q: "Antes de postar uma foto sua ou dos seus amigos na internet, o que você deve fazer?",
+                options: [
+                    { key: "A", text: "Pedir permissão para os seus pais ou responsáveis e para o amigo que está na foto." },
+                    { key: "B", text: "Postar o mais rápido possível para ganhar muitas curtidas." }
+                ],
+                correct: "A",
+                feedback: "A imagem das pessoas é muito importante e sempre devemos pedir permissão antes de postar qualquer foto."
+            }
+        ];
+
+        let currentKidsIndex = 0;
+        let answeredKids = false;
+        let kidsUserAnswers = [];
+
+        function loadKidsQuestion() {
+            answeredKids = false;
+            const container = document.getElementById("kids-quiz-container");
+            const feedbackContainer = document.getElementById("kids-feedback-container");
+            const nextBtn = document.getElementById("kids-next-btn");
+            const stepIndicator = document.getElementById("kids-step-indicator");
+            const progressBar = document.getElementById("kids-progress");
+
+            feedbackContainer.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+
+            container.style.opacity = "0";
+            container.style.transform = "translateY(8px)";
+
+            const qData = kidsQuestions[currentKidsIndex];
+
+            const percent = ((currentKidsIndex + 1) / kidsQuestions.length) * 100;
+            progressBar.style.width = `${percent}%`;
+            stepIndicator.textContent = `Pergunta ${currentKidsIndex + 1} de ${kidsQuestions.length}`;
+
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-amber-100 text-amber-800 font-extrabold px-3 py-1 rounded-full uppercase">Etapa ${currentKidsIndex + 1}</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-800 leading-snug">${qData.q}</h3>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3 mt-4">
+                        ${qData.options.map(opt => `
+                            <button onclick="answerKidsQuestion('${opt.key}')" id="btn-kids-${opt.key}" class="kids-opt-btn text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-amber-300 hover:bg-amber-50/30 transition flex items-start gap-3">
+                                <span class="w-7 h-7 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center font-bold text-xs shrink-0 transition-colors">${opt.key}</span>
+                                <span class="text-sm sm:text-base font-medium text-slate-700 leading-relaxed">${opt.text}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.style.opacity = "1";
+                container.style.transform = "translateY(0)";
+            }, 250);
+        }
+
+        function answerKidsQuestion(choice) {
+            if (answeredKids) return;
+            answeredKids = true;
+
+            const qData = kidsQuestions[currentKidsIndex];
+            const feedbackContainer = document.getElementById("kids-feedback-container");
+            const nextBtn = document.getElementById("kids-next-btn");
+
+            const isCorrect = choice === qData.correct;
+            kidsUserAnswers.push({
+                questionText: qData.q,
+                userChoice: choice,
+                correctChoice: qData.correct,
+                isCorrect: isCorrect,
+                feedbackText: qData.feedback
+            });
+
+            const allButtons = document.querySelectorAll(".kids-opt-btn");
+            allButtons.forEach(btn => {
+                btn.classList.add("opacity-50", "pointer-events-none");
+            });
+
+            const chosenBtn = document.getElementById(`btn-kids-${choice}`);
+            const correctBtn = document.getElementById(`btn-kids-${qData.correct}`);
+
+            if (isCorrect) {
+                chosenBtn.classList.remove("border-slate-100", "opacity-50");
+                chosenBtn.classList.add("border-esperanca-500", "bg-esperanca-50", "text-slate-900");
+                chosenBtn.querySelector("span").classList.remove("bg-slate-100", "text-slate-500");
+                chosenBtn.querySelector("span").classList.add("bg-esperanca-500", "text-white");
+                
+                feedbackContainer.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">🎉</span>
+                        <div>
+                            <h4 class="font-extrabold text-esperanca-700 text-lg">Incrível! Excelente escolha!</h4>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mt-1">${qData.feedback}</p>
+                        </div>
+                    </div>
+                `;
+                feedbackContainer.className = "mt-6 p-5 rounded-2xl bg-esperanca-50 border border-esperanca-100 text-esperanca-950 opacity-0 transform translate-y-4 transition-all duration-300";
+            } else {
+                chosenBtn.classList.remove("border-slate-100", "opacity-50");
+                chosenBtn.classList.add("border-red-500", "bg-red-50/50");
+                chosenBtn.querySelector("span").classList.remove("bg-slate-100", "text-slate-500");
+                chosenBtn.querySelector("span").classList.add("bg-red-500", "text-white");
+
+                correctBtn.classList.remove("opacity-50");
+                correctBtn.classList.add("border-esperanca-500", "bg-esperanca-50");
+                correctBtn.querySelector("span").classList.remove("bg-slate-100", "text-slate-500");
+                correctBtn.querySelector("span").classList.add("bg-esperanca-500", "text-white");
+
+                feedbackContainer.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">💡</span>
+                        <div>
+                            <h4 class="font-extrabold text-amber-700 text-lg">Quase lá! Vamos aprender juntos?</h4>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mt-1">${qData.feedback}</p>
+                        </div>
+                    </div>
+                `;
+                feedbackContainer.className = "mt-6 p-5 rounded-2xl bg-amber-50 border border-amber-100 text-amber-950 opacity-0 transform translate-y-4 transition-all duration-300";
+            }
+
+            feedbackContainer.classList.remove("hidden");
+            setTimeout(() => {
+                feedbackContainer.classList.add("opacity-100", "translate-y-0");
+            }, 50);
+
+            nextBtn.classList.remove("hidden");
+
+            if (currentKidsIndex === kidsQuestions.length - 1) {
+                nextBtn.innerHTML = `Ver Retrospectiva <i class="fa-solid fa-list-check"></i>`;
+                nextBtn.classList.remove("bg-amber-400", "hover:bg-amber-500");
+                nextBtn.classList.add("bg-esperanca-500", "hover:bg-esperanca-600", "text-white");
+            }
+        }
+
+        function nextKidsQuestion() {
+            if (currentKidsIndex < kidsQuestions.length - 1) {
+                currentKidsIndex++;
+                loadKidsQuestion();
+            } else {
+                showKidsQuizSummary();
+            }
+        }
+
+        function showKidsQuizSummary() {
+            const container = document.getElementById("kids-quiz-container");
+            const feedbackContainer = document.getElementById("kids-feedback-container");
+            const nextBtn = document.getElementById("kids-next-btn");
+            const stepIndicator = document.getElementById("kids-step-indicator");
+            const progressBar = document.getElementById("kids-progress");
+
+            feedbackContainer.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+            stepIndicator.textContent = "Resumo Final";
+            progressBar.style.width = "100%";
+
+            const correctCount = kidsUserAnswers.filter(ans => ans.isCorrect).length;
+            const totalCount = kidsUserAnswers.length;
+            const correctPercentage = (correctCount / totalCount) * 100;
+            const pieGradient = `conic-gradient(#22c55e ${correctPercentage}%, #fbbf24 0)`;
+            
+            let retrospectiveHtml = "";
+            kidsUserAnswers.forEach((ans, i) => {
+                const statusBadge = ans.isCorrect 
+                    ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-esperanca-100 text-esperanca-700 border border-esperanca-200">
+                        <i class="fa-solid fa-circle-check"></i> Decisão Super Segura!
+                       </span>`
+                    : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                        <i class="fa-solid fa-lightbulb"></i> Nova Lição Aprendida!
+                       </span>`;
+
+                const borderClass = ans.isCorrect ? "border-esperanca-100 bg-esperanca-50/20" : "border-amber-100 bg-amber-50/10";
+
+                retrospectiveHtml += `
+                    <div class="p-5 rounded-2xl border ${borderClass} space-y-3">
+                        <div class="flex flex-wrap justify-between items-center gap-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Desafio ${i + 1}</span>
+                            ${statusBadge}
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm sm:text-base leading-relaxed">${ans.questionText}</h4>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+                            <div class="p-2 rounded-lg bg-white border border-slate-100">
+                                <span class="text-slate-400 block font-semibold mb-0.5">A tua resposta:</span>
+                                <span class="font-bold ${ans.isCorrect ? 'text-esperanca-600' : 'text-red-500'}">Opção ${ans.userChoice}</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-white border border-slate-100">
+                                <span class="text-slate-400 block font-semibold mb-0.5">Atitude Recomendada:</span>
+                                <span class="font-bold text-esperanca-600">Opção ${ans.correctChoice}</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xs sm:text-sm text-slate-600 bg-white/60 p-3 rounded-xl border border-dashed border-slate-200">
+                            <strong>Conselho do Guardião:</strong> ${ans.feedbackText}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="text-center py-4 space-y-6">
+                    <div class="flex flex-col items-center justify-center gap-3">
+                        <div class="w-32 h-32 rounded-full relative flex items-center justify-center shadow-lg transform transition hover:scale-105" style="background: ${pieGradient};">
+                            <div class="w-24 h-24 bg-white rounded-full flex flex-col items-center justify-center shadow-inner z-10">
+                                <span class="text-3xl animate-bounce mt-1">🏆</span>
+                                <span class="font-black text-slate-800 text-sm mt-1">${correctCount}/${totalCount}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center gap-4 text-xs font-bold text-slate-600 bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
+                            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#22c55e] shadow-sm"></span> Decisões Seguras</div>
+                            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#fbbf24] shadow-sm"></span> Lições Aprendidas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2 mt-2">
+                        <h3 class="text-2xl sm:text-3xl font-black text-slate-800">Parabéns pelo teu Esforço!</h3>
+                        <p class="text-slate-500 max-w-md mx-auto text-sm">
+                            Completaste as etapas de segurança. Analisa abaixo cada lição importante para saberes como reagir sempre com segurança na internet!
+                        </p>
+                    </div>
+
+                    <div class="text-left space-y-4 max-h-[380px] overflow-y-auto pr-2 mt-4 custom-scrollbar">
+                        ${retrospectiveHtml}
+                    </div>
+
+                    <div class="pt-4 flex flex-wrap justify-center gap-3">
+                        <button onclick="restartKidsQuiz()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold px-6 py-3 rounded-xl shadow-md transition text-sm sm:text-base">
+                            Tentar de Novo <i class="fa-solid fa-rotate-left ml-1"></i>
+                        </button>
+                        <button onclick="switchTab('landing')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold px-6 py-3 rounded-xl transition text-sm sm:text-base">
+                            Menu Principal <i class="fa-solid fa-house ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function restartKidsQuiz() {
+            currentKidsIndex = 0;
+            kidsUserAnswers = [];
+            loadKidsQuestion();
+        }
+
+        // --- MÓDULO 2: ESTUDOS DE CASO (TEENS) ---
+        const teenCases = [
+            {
+                title: "Engenharia Social e Phishing (Cibersegurança)",
+                context: "Lucas, de 15 anos, é muito ativo em um servidor famoso do Discord. Um dia, ele recebe uma mensagem direta de um usuário com o selo de \"Moderador\", oferecendo uma chave de acesso antecipado para um jogo extremamente aguardado. A mensagem diz: \"Selecionamos membros ativos para a fase de testes! Faça login com a sua conta da Steam no link abaixo para resgatar sua chave nas próximas 2 horas.\" O link parece autêntico à primeira vista.",
+                q: "Qual é o risco estrutural dessa abordagem e qual a melhor ação a ser tomada?",
+                options: [
+                    { key: "A", text: "O principal risco é o link estar quebrado. Lucas deve clicar, mas usar uma aba anônima para garantir que o jogo seja baixado sem erros." },
+                    { key: "B", text: "Trata-se de um ataque de Phishing com senso de urgência. Lucas não deve clicar, pois moderadores reais não exigem login em links externos para distribuir prêmios." },
+                    { key: "C", text: "O risco é baixo. Sendo um moderador do servidor, a confiança já está estabelecida, e a urgência é comum em lançamentos de jogos." }
+                ],
+                correct: "B",
+                analysis: "A urgência (exigir ação rápida em 2 horas) e a oferta de um prêmio muito desejado são táticas clássicas de Phishing (pescaria) para roubar credenciais. Moderadores oficiais não pedem login fora da plataforma segura."
+            },
+            {
+                title: "Efeito Manada e Doxxing (Cyberbullying)",
+                context: "No grupo de WhatsApp da turma, um aluno transforma uma foto constrangedora de uma colega tirada na sala de aula em uma figurinha. A imagem viraliza rapidamente. Em seguida, outro aluno sugere criar um perfil falso no Instagram (um \"exposed\") para postar mais fotos e compartilhar informações pessoais dela, como o endereço e o número de telefone, incentivando que outros façam o mesmo.",
+                q: "Do ponto de vista legal e ético, qual é a implicação de apoiar, curtir ou repassar esse tipo de conteúdo?",
+                options: [
+                    { key: "A", text: "Configura Cyberbullying e Doxxing (exposição de dados pessoais). Quem repassa ou engaja com o conteúdo também se torna corresponsável pela agressão e deixa rastros digitais permanentes." },
+                    { key: "B", text: "É considerado apenas um conflito escolar virtual. A responsabilidade é exclusiva de quem tirou a primeira foto, e quem apenas repassa está isento de consequências." },
+                    { key: "C", text: "Desde que as pessoas usem perfis falsos ou anônimos, a segurança digital de quem pratica a ação está garantida e não há como rastrear a origem." }
+                ],
+                correct: "A",
+                analysis: "O Doxxing e o Cyberbullying são crimes com sérias implicações legais. O compartilhamento e o engajamento tornam todos os envolvidos cúmplices da agressão, deixando rastros digitais fáceis de serem investigados pelas autoridades."
+            },
+            {
+                title: "Manipulação e Grooming (Aliciamento/Pedofilia)",
+                context: "Mariana tem 14 anos e costuma jogar partidas online com o chat de voz aberto. Há um mês, ela joga quase todos os dias com \"GamerX\", que diz ter 15 anos e morar em outro estado. Ele é sempre compreensivo, a defende nas partidas e até comprou itens virtuais (skins) para ela. Hoje, \"GamerX\" sugeriu que eles migrassem para um aplicativo de mensagens secretas que apaga os textos automaticamente, pedindo que ela não contasse aos pais porque \"adultos não entendem a amizade deles\", e solicitou uma foto dela para \"saber com quem está jogando\".",
+                q: "Qual tática de manipulação está sendo evidenciada no comportamento de \"GamerX\"?",
+                options: [
+                    { key: "A", text: "Ele está apenas buscando uma comunicação mais eficiente e segura, já que aplicativos com autodestruição de mensagens protegem a privacidade de ambos contra hackers." },
+                    { key: "B", text: "Trata-se do processo de Grooming. O agressor constrói confiança, oferece presentes, tenta isolar a vítima da família e busca migrar para plataformas com menos moderação para solicitar conteúdo íntimo." },
+                    { key: "C", text: "É uma tática de competição do jogo. Ele quer a foto de Mariana para criar um avatar customizado e o sigilo é apenas para fazer uma surpresa para os outros jogadores." }
+                ],
+                correct: "B",
+                analysis: "O aliciador online (processo de Grooming) tenta criar um forte vínculo emocional através de presentes e falsa compreensão. Ele busca o isolamento da vítima (pedindo segredo aos pais) e migra para canais não monitorados antes de pedir fotos para cometer chantagens (sextorsão)."
+            }
+        ];
+
+        let currentTeenIndex = 0;
+        let answeredTeen = false;
+        let teenUserAnswers = [];
+
+        function loadTeenCase(index) {
+            currentTeenIndex = index;
+            answeredTeen = false;
+            const container = document.getElementById("teens-case-container");
+            const feedbackContainer = document.getElementById("teens-feedback-container");
+            const nextBtn = document.getElementById("teens-next-btn");
+            const stepIndicator = document.getElementById("teens-step-indicator");
+            const progressBar = document.getElementById("teens-progress");
+
+            feedbackContainer.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+
+            container.style.opacity = "0";
+            container.style.transform = "translateY(8px)";
+
+            const cData = teenCases[currentTeenIndex];
+
+            const percent = ((currentTeenIndex + 1) / teenCases.length) * 100;
+            progressBar.style.width = `${percent}%`;
+            stepIndicator.textContent = `Caso ${currentTeenIndex + 1} de ${teenCases.length}`;
+
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-200 font-extrabold px-3 py-1 rounded-full uppercase">Estudo de Caso ${currentTeenIndex + 1}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white leading-snug">${cData.title}</h3>
+                        <div class="bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600 rounded-2xl p-4 sm:p-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed text-justify font-normal">
+                            ${cData.context}
+                        </div>
+                        <p class="font-bold text-slate-800 dark:text-slate-200 text-base mt-2">${cData.q}</p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3 mt-4">
+                        ${cData.options.map(opt => `
+                            <button onclick="answerTeenCase('${opt.key}')" id="btn-teen-${opt.key}" class="teen-opt-btn text-left p-4 rounded-2xl border-2 border-slate-100 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-500 hover:bg-indigo-50/30 dark:hover:bg-indigo-900/20 transition flex items-start gap-3">
+                                <span class="w-7 h-7 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center font-bold text-xs shrink-0 text-slate-500 dark:text-slate-300">${opt.key}</span>
+                                <span class="text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300 leading-relaxed">${opt.text}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.style.opacity = "1";
+                container.style.transform = "translateY(0)";
+            }, 250);
+        }
+
+        function answerTeenCase(choice) {
+            if (answeredTeen) return;
+            answeredTeen = true;
+
+            const cData = teenCases[currentTeenIndex];
+            const feedbackContainer = document.getElementById("teens-feedback-container");
+            const nextBtn = document.getElementById("teens-next-btn");
+
+            const isCorrect = choice === cData.correct;
+            teenUserAnswers.push({
+                questionText: cData.title + " - " + cData.q,
+                userChoice: choice,
+                correctChoice: cData.correct,
+                isCorrect: isCorrect,
+                feedbackText: cData.analysis
+            });
+
+            const allButtons = document.querySelectorAll(".teen-opt-btn");
+            allButtons.forEach(btn => {
+                btn.classList.add("opacity-50", "pointer-events-none");
+            });
+
+            const chosenBtn = document.getElementById(`btn-teen-${choice}`);
+            const correctBtn = document.getElementById(`btn-teen-${cData.correct}`);
+
+            if (choice === cData.correct) {
+                chosenBtn.classList.remove("border-slate-100", "dark:border-slate-700", "opacity-50");
+                chosenBtn.classList.add("border-esperanca-500", "bg-esperanca-50", "dark:bg-esperanca-900/20", "text-esperanca-900", "dark:text-esperanca-100");
+                chosenBtn.querySelector("span").classList.remove("dark:bg-slate-700", "dark:text-slate-300");
+                chosenBtn.querySelector("span").classList.add("bg-esperanca-500", "text-white");
+
+                feedbackContainer.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">🛡️</span>
+                        <div>
+                            <h4 class="font-extrabold text-esperanca-700 dark:text-esperanca-400 text-lg">Excelente escolha! Decisão segura!</h4>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mt-1"><strong>Análise Técnica:</strong> ${cData.analysis}</p>
+                        </div>
+                    </div>
+                `;
+                feedbackContainer.className = "mt-6 p-5 rounded-2xl bg-esperanca-50 dark:bg-esperanca-900/20 border border-esperanca-100 dark:border-esperanca-800 text-esperanca-950 dark:text-esperanca-100 opacity-0 transform translate-y-4 transition-all duration-300";
+            } else {
+                chosenBtn.classList.remove("border-slate-100", "dark:border-slate-700", "opacity-50");
+                chosenBtn.classList.add("border-red-500", "bg-red-50/50", "dark:bg-red-900/20");
+                chosenBtn.querySelector("span").classList.remove("dark:bg-slate-700", "dark:text-slate-300");
+                chosenBtn.querySelector("span").classList.add("bg-red-500", "text-white");
+
+                correctBtn.classList.remove("opacity-50", "dark:border-slate-700");
+                correctBtn.classList.add("border-esperanca-500", "bg-esperanca-50", "dark:bg-esperanca-900/20");
+                correctBtn.querySelector("span").classList.remove("dark:bg-slate-700", "dark:text-slate-300");
+                correctBtn.querySelector("span").classList.add("bg-esperanca-500", "text-white");
+
+                feedbackContainer.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">💡</span>
+                        <div>
+                            <h4 class="font-extrabold text-amber-700 dark:text-amber-400 text-lg">Perigo de Segurança Detetado.</h4>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mt-1"><strong>Análise Técnica:</strong> ${cData.analysis}</p>
+                        </div>
+                    </div>
+                `;
+                feedbackContainer.className = "mt-6 p-5 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 text-amber-950 dark:text-amber-100 opacity-0 transform translate-y-4 transition-all duration-300";
+            }
+
+            feedbackContainer.classList.remove("hidden");
+            setTimeout(() => {
+                feedbackContainer.classList.add("opacity-100", "translate-y-0");
+            }, 50);
+
+            nextBtn.classList.remove("hidden");
+
+            if (currentTeenIndex === teenCases.length - 1) {
+                nextBtn.innerHTML = `Finalizar Casos <i class="fa-solid fa-flag-checkered"></i>`;
+                nextBtn.classList.remove("bg-indigo-500", "hover:bg-indigo-600");
+                nextBtn.classList.add("bg-esperanca-500", "hover:bg-esperanca-600", "text-white");
+            }
+        }
+
+        function nextTeenCase() {
+            if (currentTeenIndex < teenCases.length - 1) {
+                currentTeenIndex++;
+                loadTeenCase(currentTeenIndex);
+            } else {
+                showTeenQuizSummary();
+            }
+        }
+
+        function showTeenQuizSummary() {
+            const container = document.getElementById("teens-case-container");
+            const feedbackContainer = document.getElementById("teens-feedback-container");
+            const nextBtn = document.getElementById("teens-next-btn");
+            const stepIndicator = document.getElementById("teens-step-indicator");
+            const progressBar = document.getElementById("teens-progress");
+
+            feedbackContainer.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+            stepIndicator.textContent = "Análise Final";
+            progressBar.style.width = "100%";
+
+            const correctCount = teenUserAnswers.filter(ans => ans.isCorrect).length;
+            const totalCount = teenUserAnswers.length;
+            const correctPercentage = (correctCount / totalCount) * 100;
+            const pieGradient = `conic-gradient(#22c55e ${correctPercentage}%, #fbbf24 0)`;
+
+            let retrospectiveHtml = "";
+            teenUserAnswers.forEach((ans, i) => {
+                const statusBadge = ans.isCorrect
+                    ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-esperanca-100 dark:bg-esperanca-900/40 text-esperanca-700 dark:text-esperanca-300 border border-esperanca-200 dark:border-esperanca-800">
+                        <i class="fa-solid fa-shield-halved"></i> Análise Correta
+                       </span>`
+                    : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Ponto de Atenção
+                       </span>`;
+
+                const borderClass = ans.isCorrect ? "border-esperanca-100 dark:border-esperanca-800 bg-esperanca-50/20 dark:bg-esperanca-900/10" : "border-amber-100 dark:border-amber-800 bg-amber-50/10 dark:bg-amber-900/10";
+
+                retrospectiveHtml += `
+                    <div class="p-5 rounded-2xl border ${borderClass} space-y-3">
+                        <div class="flex flex-wrap justify-between items-center gap-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Estudo de Caso ${i + 1}</span>
+                            ${statusBadge}
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base leading-relaxed">${ans.questionText}</h4>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+                            <div class="p-2 rounded-lg bg-white dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600">
+                                <span class="text-slate-400 dark:text-slate-400 block font-semibold mb-0.5">A tua resposta:</span>
+                                <span class="font-bold ${ans.isCorrect ? 'text-esperanca-600 dark:text-esperanca-400' : 'text-red-500 dark:text-red-400'}">Opção ${ans.userChoice}</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-white dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600">
+                                <span class="text-slate-400 dark:text-slate-400 block font-semibold mb-0.5">Ação Segura Recomendada:</span>
+                                <span class="font-bold text-esperanca-600 dark:text-esperanca-400">Opção ${ans.correctChoice}</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 bg-white/60 dark:bg-slate-700/30 p-3 rounded-xl border border-dashed border-slate-200 dark:border-slate-600">
+                            <strong>Análise Técnica:</strong> ${ans.feedbackText}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="text-center py-4 space-y-6">
+                    <div class="flex flex-col items-center justify-center gap-3">
+                        <div class="w-32 h-32 rounded-full relative flex items-center justify-center shadow-lg transform transition hover:scale-105" style="background: ${pieGradient};">
+                            <div class="w-24 h-24 bg-white dark:bg-slate-800 rounded-full flex flex-col items-center justify-center shadow-inner z-10 transition-colors duration-500">
+                                <span class="text-3xl animate-bounce mt-1">🎓</span>
+                                <span class="font-black text-slate-800 dark:text-white text-sm mt-1">${correctCount}/${totalCount}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center gap-4 text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-700/50 px-4 py-2 rounded-full border border-slate-100 dark:border-slate-600">
+                            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#22c55e] shadow-sm"></span> Decisões Seguras</div>
+                            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#fbbf24] shadow-sm"></span> Pontos de Atenção</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mt-2">
+                        <h3 class="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white">Conhecimento é Segurança!</h3>
+                        <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto text-sm">
+                            Analisa abaixo as tuas respostas dos cenários de engenharia social para estares preparado para lidar com ameaças no mundo real!
+                        </p>
+                    </div>
+
+                    <div class="text-left space-y-4 max-h-[380px] overflow-y-auto pr-2 mt-4 custom-scrollbar">
+                        ${retrospectiveHtml}
+                    </div>
+
+                    <div class="pt-4 flex flex-wrap justify-center gap-3">
+                        <button onclick="restartTeenQuiz()" class="bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition text-sm sm:text-base">
+                            Tentar Novamente <i class="fa-solid fa-rotate-left ml-1"></i>
+                        </button>
+                        <button onclick="switchTab('landing')" class="bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-white font-extrabold px-6 py-3 rounded-xl transition text-sm sm:text-base">
+                            Menu Principal <i class="fa-solid fa-house ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function restartTeenQuiz() {
+            currentTeenIndex = 0;
+            teenUserAnswers = [];
+            loadTeenCase(0);
+        }
+
+        // --- INICIALIZAÇÃO DA PÁGINA ---
+        window.onload = function() {
+            loadKidsQuestion();
+            loadTeenCase(0);
+        }
+    </script>
+</body>
+</html>
